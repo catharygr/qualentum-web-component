@@ -39,7 +39,21 @@ class MyComponent extends HTMLElement {
 
   }
 
+  button {
+    background-color: maroon;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
 
+  button:hover {
+    background-color: #b30000;
+    box-shadow: 0 0 10px #b30000;
+  }
+  
   
   </style>
 
