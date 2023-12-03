@@ -11,13 +11,120 @@
       rel="stylesheet"
       href="styles.css"
     />
+    <script>
+      window.globalContext = {
+        _name: "Jorge",
+
+        set name(value) {
+          this._name = value;
+          document.dispatchEvent(new Event("contextChange"));
+        },
+
+        get name() {
+          return this._name;
+        },
+      };
+    </script>
   </head>
   <body>
-    <h1>My titulo de la web</h1>
-    <my-component>
+    <h1>My titulo de la webreye</h1>
+    <!-- <my-component>
       <p slot="text-parrafo">My web companent</p>
       <span slot="button">Click here</span>
-    </my-component>
+    </my-component> -->
+    <style>
+      #bubling-test-padre {
+        background-color: red;
+        padding: 20px;
+      }
+      #bubling-test-hijo {
+        background-color: green;
+        padding: 20px;
+      }
+      #bubling-test-nieto {
+        background-color: blue;
+        padding: 20px;
+      }
+    </style>
+
+    <h2>La prueba de bubling</h2>
+    <div id="bubling-test-padre">
+      <div id="bubling-test-hijo">
+        <div id="bubling-test-nieto"></div>
+      </div>
+    </div>
+
+    <button id="click-hidden-div">Click hidden div</button>
+    <br />
+    <button id="click-bubling-test-nieto">Bubble Nieto</button>
+    <button id="click-bubling-test-hijo">Bubble Hijo</button>
+    <button id="click-bubling-test-padre">Bubble Padre</button>
+
+    <script>
+      const bubbligEvent = new Event("bubblingEvent", {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+      });
+
+      const bublingTestPadre = document.getElementById("bubling-test-padre");
+      const bublingTestHijo = document.getElementById("bubling-test-hijo");
+      const bublingTestNieto = document.getElementById("bubling-test-nieto");
+
+      const clickBublingTestNieto = document.getElementById(
+        "click-bubling-test-nieto"
+      );
+      const clickBublingTestHijo = document.getElementById(
+        "click-bubling-test-hijo"
+      );
+      const clickBublingTestPadre = document.getElementById(
+        "click-bubling-test-padre"
+      );
+      const clickHiddenDiv = document.getElementById("click-hidden-div");
+
+      bublingTestNieto.attachShadow({ mode: "open" });
+      const nietoShadow = bublingTestNieto.shadowRoot;
+      const divHidden = document.createElement("div");
+      divHidden.setAttribute("id", "div-hidden");
+      divHidden.style.backgroundColor = "yellow";
+      divHidden.style.padding = "1rem";
+      nietoShadow.appendChild(divHidden);
+      renderHiddenDiv();
+
+      clickBublingTestNieto.addEventListener("click", () => {
+        bublingTestNieto.dispatchEvent(bubbligEvent);
+      });
+      clickBublingTestHijo.addEventListener("click", () => {
+        bublingTestHijo.dispatchEvent(bubbligEvent);
+      });
+      clickBublingTestPadre.addEventListener("click", () => {
+        bublingTestPadre.dispatchEvent(bubbligEvent);
+      });
+
+      clickHiddenDiv.addEventListener("click", () => {
+        divHidden.dispatchEvent(bubbligEvent);
+      });
+
+      bublingTestPadre.addEventListener("bubblingEvent", (e) => {
+        console.log("Padre", e.target);
+      });
+      bublingTestHijo.addEventListener("bubblingEvent", (e) => {
+        // e.stopPropagation();
+        console.log("Hijo", e.target);
+      });
+      bublingTestNieto.addEventListener("bubblingEvent", (e) => {
+        console.log("Nieto", e.target);
+      });
+      divHidden.addEventListener("bubblingEvent", (e) => {
+        console.log("Hidden", e.target);
+      });
+      function renderHiddenDiv() {
+        divHidden.textContent = window.globalContext.name;
+      }
+      document.addEventListener("contextChange", () => {
+        renderHiddenDiv();
+      });
+    </script>
 
     <script src="./main.js"></script>
   </body>

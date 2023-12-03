@@ -1,11 +1,11 @@
 class MyComponent extends HTMLElement {
-  parrafo = "Hola mundo";
-  myAtribute = "";
+  // parrafo = "Hola mundo";
+  // myAtribute = "";
 
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.myAtribute = this.getAttribute("my-attribute");
+    // this.myAtribute = this.getAttribute("my-attribute");
   }
 
   connectedCallback() {
@@ -19,9 +19,9 @@ class MyComponent extends HTMLElement {
   }
 
   htmlElement() {
-    const pAttribute = this.myAtribute
-      ? `my-attribute="${this.myAtribute}"`
-      : "";
+    // const pAttribute = this.myAtribute
+    //   ? `my-attribute="${this.myAtribute}"`
+    //   : "";
     const html = `
   <style>
   .container {
@@ -58,10 +58,10 @@ class MyComponent extends HTMLElement {
   </style>
 
 <div class="container">
-    <p ${pAttribute}>
-    <slot name="text-parrafo">"${this.parrafo}"</slot>
+    <p>
+  
     <button>
-    <slot name="button"></slot>
+ Click me!
     </button>
     </p>
 </div>
