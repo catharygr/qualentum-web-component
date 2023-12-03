@@ -28,10 +28,7 @@
   </head>
   <body>
     <h1>My titulo de la webreye</h1>
-    <!-- <my-component>
-      <p slot="text-parrafo">My web companent</p>
-      <span slot="button">Click here</span>
-    </my-component> -->
+
     <style>
       #bubling-test-padre {
         background-color: red;
@@ -81,6 +78,15 @@
         "click-bubling-test-padre"
       );
       const clickHiddenDiv = document.getElementById("click-hidden-div");
+
+      bublingTestNieto.attachShadow({ mode: "open" });
+      const nietoShadow = bublingTestNieto.shadowRoot;
+      const divHidden = document.createElement("div");
+      divHidden.setAttribute("id", "div-hidden");
+      divHidden.style.backgroundColor = "yellow";
+      divHidden.style.padding = "1rem";
+      nietoShadow.appendChild(divHidden);
+      renderHiddenDiv();
 
       clickBublingTestNieto.addEventListener("click", () => {
         bublingTestNieto.dispatchEvent(bubbligEvent);
