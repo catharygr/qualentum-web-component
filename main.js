@@ -2,6 +2,12 @@ class MyComponent extends HTMLElement {
   // parrafo = "Hola mundo";
   // myAtribute = "";
 
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    // this.myAtribute = this.getAttribute("my-attribute");
+  }
+
   connectedCallback() {
     this.render();
   }
