@@ -73,5 +73,3 @@ class MyComponent extends HTMLElement {
     return template;
   }
 }
-
-window.customElements.define("my-component", MyComponent);
