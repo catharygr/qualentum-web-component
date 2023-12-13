@@ -9,12 +9,3 @@ h1 {
   text-align: center;
   color: maroon;
 }
-button {
-  background-color: maroon;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: none;
-  margin: 0.5rem;
-  cursor: pointer;
-}
